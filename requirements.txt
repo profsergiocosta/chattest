@@ -1,0 +1,7 @@
+chainlit==0.7.700
+openai>=1.26.0
+langchain==0.3.0
+langchain-core==0.3.1
+langchain-community==0.3.0
+langchain-openai==0.2.0
+
