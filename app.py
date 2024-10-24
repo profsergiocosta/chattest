@@ -1,82 +1,31 @@
 import chainlit as cl
 
 
-import chainlit as cl
-from chainlit.input_widget import Select, Switch, Slider
-
-
-
-
 @cl.on_chat_start
-async def start():
-    settings = await cl.ChatSettings(
-        [
-            Select(
-                id="Model",
-                label="OpenAI - Model",
-                values=["gpt-3.5-turbo", "gpt-3.5-turbo-16k", "gpt-4", "gpt-4-32k"],
-                initial_index=0,
-            ),
-            Switch(id="Streaming", label="OpenAI - Stream Tokens", initial=True),
-            Slider(
-                id="Temperature",
-                label="OpenAI - Temperature",
-                initial=1,
-                min=0,
-                max=2,
-                step=0.1,
-            ),
-            Slider(
-                id="SAI_Steps",
-                label="Stability AI - Steps",
-                initial=30,
-                min=10,
-                max=150,
-                step=1,
-                description="Amount of inference steps performed on image generation.",
-            ),
-            Slider(
-                id="SAI_Cfg_Scale",
-                label="Stability AI - Cfg_Scale",
-                initial=7,
-                min=1,
-                max=35,
-                step=0.1,
-                description="Influences how strongly your generation is guided to match your prompt.",
-            ),
-            Slider(
-                id="SAI_Width",
-                label="Stability AI - Image Width",
-                initial=512,
-                min=256,
-                max=2048,
-                step=64,
-                tooltip="Measured in pixels",
-            ),
-            Slider(
-                id="SAI_Height",
-                label="Stability AI - Image Height",
-                initial=512,
-                min=256,
-                max=2048,
-                step=64,
-                tooltip="Measured in pixels",
-            ),
-        ]
-    ).send()
+def on_chat_start():
+    print("A new chat session has started!")
 
-
-@cl.on_settings_update
-async def setup_agent(settings):
-    print("on_settings_update", settings)
-
+@cl.password_auth_callback
+def auth_callback(username: str, password: str):
+    # Verifica o usuário e senha
+    if (username, password) == ("admin", "admin"):
+        return cl.User(
+            identifier="admin", metadata={"role": "admin", "provider": "credentials"}
+        )
+    else:
+        return None
 
 @cl.on_message
-async def main(message: cl.Message):
-    # Your custom logic goes here...
+async def on_message(message: cl.Message):
+    # Certifique-se de que você está acessando o contexto dentro de eventos.
+    try:
+        # Acessa o contexto dentro de um bloco onde ele está ativo
+        user = cl.user_session.get("user")
+        if user:
+            print(f"Usuário autenticado: {user}")
+        else:
+            print("Nenhum usuário encontrado na sessão.")
+    except cl.context.ChainlitContextException as e:
+        print("Erro: Chainlit context não encontrado.")
+        print(e)
 
-    # Send a response back to the user
-    await cl.Message(
-        content=f"Received: {message.content}",
-    ).send()
-    
