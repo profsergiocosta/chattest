@@ -3,8 +3,11 @@ RUN useradd -m -u 1000 user
 USER user
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
-ENV HOST=0.0.0.0    
+
 WORKDIR $HOME/app
+
+RUN pip install --no-cache-dir --upgrade pip
+
 COPY --chown=user . $HOME/app
 COPY ./requirements.txt ~/app/requirements.txt
 RUN pip install -r requirements.txt
