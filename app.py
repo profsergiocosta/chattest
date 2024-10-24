@@ -15,17 +15,12 @@ def auth_callback(username: str, password: str):
     else:
         return None
 
-@cl.on_message
-async def on_message(message: cl.Message):
-    # Certifique-se de que você está acessando o contexto dentro de eventos.
-    try:
-        # Acessa o contexto dentro de um bloco onde ele está ativo
-        user = cl.user_session.get("user")
-        if user:
-            print(f"Usuário autenticado: {user}")
-        else:
-            print("Nenhum usuário encontrado na sessão.")
-    except cl.context.ChainlitContextException as e:
-        print("Erro: Chainlit context não encontrado.")
-        print(e)
 
+@cl.on_message
+async def main(message: cl.Message):
+    # Your custom logic goes here...
+
+    # Send a response back to the user
+    await cl.Message(
+        content=f"Received: {message.content}",
+    ).send()
