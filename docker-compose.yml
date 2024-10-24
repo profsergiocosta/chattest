@@ -1,0 +1,10 @@
+
+
+services:
+  chainlit_app:
+    build: .
+    ports:
+      - "7860:7860"
+
+
+
