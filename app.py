@@ -1,7 +1,7 @@
 from typing import Dict, Optional
 import chainlit as cl
 
-
+'''
 @cl.oauth_callback
 def oauth_callback(
   provider_id: str,
@@ -10,7 +10,7 @@ def oauth_callback(
   default_user: cl.User,
 ) -> Optional[cl.User]:
   return default_user
-
+'''
 
 
 @cl.on_message
