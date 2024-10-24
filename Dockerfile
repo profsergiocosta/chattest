@@ -12,4 +12,5 @@ COPY --chown=user ./requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY --chown=user . $HOME/app
-CMD ["chainlit", "run", "app.py", "--port", "7860"]
+#CMD ["chainlit", "run", "app.py", "--port", "7860"]
+CMD ["chainlit", "run", "app.py", "--host=0.0.0.0"]
