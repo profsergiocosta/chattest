@@ -9,7 +9,10 @@ WORKDIR $HOME/app
 RUN pip install --no-cache-dir --upgrade pip
 
 COPY --chown=user . $HOME/app
-COPY ./requirements.txt ~/app/requirements.txt
-RUN pip install -r requirements.txt
+
+COPY --chown=user ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+
+
 COPY . .
 CMD ["chainlit", "run", "app.py", "--port", "7860"]
