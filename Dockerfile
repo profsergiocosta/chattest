@@ -3,6 +3,7 @@ RUN useradd -m -u 1000 user
 USER user
 ENV HOME=/home/user \
     PATH=/home/user/.local/bin:$PATH
+ENV HOST=0.0.0.0    
 WORKDIR $HOME/app
 COPY --chown=user . $HOME/app
 COPY ./requirements.txt ~/app/requirements.txt
