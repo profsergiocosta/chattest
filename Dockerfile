@@ -14,6 +14,4 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY --chown=user . $HOME/app
 #CMD ["chainlit", "run", "app.py", "--port", "7860"]
 
-EXPOSE 8000
-
 CMD ["chainlit", "run", "app.py", "--port", "8000"]
