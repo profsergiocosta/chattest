@@ -6,13 +6,10 @@ ENV HOME=/home/user \
 
 WORKDIR $HOME/app
 
-RUN pip install --no-cache-dir --upgrade pip
 
-COPY --chown=user . $HOME/app
 
 COPY --chown=user ./requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-
-COPY . .
+COPY --chown=user . $HOME/app
 CMD ["chainlit", "run", "app.py", "--port", "7860"]
