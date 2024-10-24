@@ -1,3 +1,0 @@
-# Bem Vindos
-
-Odonto Expert ...
