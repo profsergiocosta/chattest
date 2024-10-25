@@ -7,14 +7,20 @@ ENV HOME=/home/user \
 
 WORKDIR $HOME/app
 
+#WORKDIR /app
 
-COPY --chown=user . $HOME/app
+#COPY --chown=user . $HOME/app
 
-COPY --chown=user ./requirements.txt requirements.txt
-RUN pip install --no-cache-dir --upgrade -r requirements.txt
+COPY ./requirements.txt requirements.txt
 
-#CMD ["chainlit", "run", "app.py", "--port", "7860"]
+#COPY --chown=user ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
+EXPOSE 8000
 
-CMD ["chainlit", "run", "app.py", "--port", "8000"]
+#CMD ["chainlit", "run", "app.py", "--port", "7860"]
+CMD ["chainlit", "run", "app.py", "--host=0.0.0.0", "--port", "8000"]
+
+#CMD ["chainlit", "run", "app.py", "--port", "8000"]
